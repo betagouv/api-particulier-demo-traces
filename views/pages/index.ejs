@@ -64,7 +64,7 @@ function getSvair (event) {
         'X-Api-Key': target.name
       }
       }).then((response) => {
-        alert('Données récupérées')
+        alert('Appel API Particulier effectué')
         target.reset()
         console.log(response)
       }).catch((response) => console.log(response))
