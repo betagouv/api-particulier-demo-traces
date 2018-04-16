@@ -2,12 +2,71 @@
 <html>
   <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/github/fetch@2.0.4/fetch.js"></script>
   </head>
   <body>
-    <div class="container">
+    <div class="row">
+      <div class="col-md-4">
       <div class="jumbotron">
         <h1>Démo de traces de API Particulier</h1>
+        <hr />
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Téléservice Bourse - Démonstration</h3>
+            <form name="462a57c8591604cd91b9a832fa217d01" onSubmit="getSvair(event)">
+              <div class="form-group">
+                <label>Numéro fiscal</label>
+                <input class="form-control" name="numeroFiscal">
+              </div>
+              <div class="form-group">
+                <label>Référence avis</label>
+                <input class="form-control" name="referenceAvis">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">
+                  Envoyer
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Calcul de quotient familial démo - Démonstration</h3>
+            <form name="986b76621714e1386b021ef2cecf1603" onSubmit="getSvair(event)">
+              <div class="form-group">
+                <label>Numéro fiscal</label>
+                <input class="form-control" name="numeroFiscal">
+              </div>
+              <div class="form-group">
+                <label>Référence avis</label>
+                <input class="form-control" name="referenceAvis">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">
+                  Envoyer
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="col-md-8">
+    <iframe width="100%" height="100%" src="https://monitoring.particulier.api.gouv.fr/app/kibana#/visualize/edit/AWLN243Vba0rQwOJqElc?_g=()&_a=(filters:!(),linked:!f,query:(match_all:()),uiState:(vis:(params:(sort:(columnIndex:!n,direction:!n)))),vis:(aggs:!((enabled:!t,id:'1',params:(),schema:metric,type:count),(enabled:!t,id:'3',params:(customLabel:'Heure%20de%20l!'appel',field:'@timestamp',order:desc,orderBy:'1',size:5),schema:bucket,type:terms),(enabled:!t,id:'2',params:(customLabel:'Organisme%20appelant',field:consumer.organisation,order:desc,orderBy:'1',size:5),schema:bucket,type:terms)),listeners:(),params:(perPage:10,showMeticsAtAllLevels:!f,showPartialRows:!f,showTotal:!f,sort:(columnIndex:!n,direction:!n),totalFunc:sum,type:table),title:'D%C3%A9monstration%20juristes',type:table))"></iframe>
+    </div>
+    </div>
+    <script>
+function getSvair (event) {
+  event.preventDefault()
+  let target = event.target
+  fetch('https://particulier.api.gouv.fr/api/impots/svair?numeroFiscal=' + target.elements[0].value + '&referenceAvis=' + target.elements[1].value, {
+      headers: {
+        'X-Api-Key': target.name
+      }
+      }).then((response) => console.log(response))
+        .catch((response) => console.log(response))
+}
+    </script>
   </body>
 </html>
